@@ -34,7 +34,7 @@ def load_single_recording(subject_id, exercise_id):
     return data
 
 
-def load_all_data():
+def load_all_data(return_recording_ids=False):
     """
     Load entire dataset as arrays.
     
@@ -42,10 +42,12 @@ def load_all_data():
         X: np.ndarray (num_recordings, num_channels, num_samples)
         y: np.ndarray of exercise labels (0, 1, or 2)
         subject_ids: np.ndarray of subject identifiers
+        recording_ids (optional): np.ndarray of unique recording identifiers
     """
     X_list = []
     y_list = []
     subject_ids_list = []
+    recording_ids_list = []
     
     for subject_id in range(config.NUM_SUBJECTS):
         for exercise_id in range(config.NUM_EXERCISES):
@@ -54,14 +56,18 @@ def load_all_data():
                 X_list.append(data)
                 y_list.append(exercise_id)
                 subject_ids_list.append(subject_id)
+                recording_ids_list.append(subject_id * config.NUM_EXERCISES + exercise_id)
     
     X = np.array(X_list)
     y = np.array(y_list)
     subject_ids = np.array(subject_ids_list)
+    recording_ids = np.array(recording_ids_list)
     
     print(f"Loaded {X.shape[0]} recordings from {len(np.unique(subject_ids))} subjects")
     print(f"  Shape per recording: {X.shape[1:]} (channels x samples)")
     
+    if return_recording_ids:
+        return X, y, subject_ids, recording_ids
     return X, y, subject_ids
 
 

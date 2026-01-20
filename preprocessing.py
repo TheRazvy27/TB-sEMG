@@ -117,21 +117,25 @@ def preprocess_recording(data, apply_filter=True, apply_normalize=True, segment=
     return processed
 
 
-def preprocess_dataset(X, segment=True):
+def preprocess_dataset(X, segment=True, apply_normalize=None):
     """
     Preprocess entire dataset.
     
     Args:
         X: Array of recordings (num_recordings, channels, samples)
         segment: Whether to segment into windows
+        apply_normalize: Override signal normalization (True/False)
     
     Returns:
         Preprocessed data, windows_per_recording
     """
+    if apply_normalize is None:
+        apply_normalize = config.SIGNAL_NORMALIZE
+
     processed_list = []
     
     for i, recording in enumerate(X):
-        processed = preprocess_recording(recording, segment=segment)
+        processed = preprocess_recording(recording, apply_normalize=apply_normalize, segment=segment)
         processed_list.append(processed)
         
         if (i + 1) % 50 == 0:
@@ -153,6 +157,11 @@ def expand_labels(y, windows_per_recording):
 def expand_subject_ids(subject_ids, windows_per_recording):
     """Expand subject IDs to match windowed data."""
     return np.repeat(subject_ids, windows_per_recording)
+
+
+def expand_recording_ids(recording_ids, windows_per_recording):
+    """Expand recording IDs to match windowed data."""
+    return np.repeat(recording_ids, windows_per_recording)
 
 
 if __name__ == "__main__":

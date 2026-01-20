@@ -49,6 +49,40 @@ TRAIN_RATIO = 0.70   # 70 subjects for training
 VAL_RATIO = 0.15     # 15 subjects for validation
 TEST_RATIO = 0.15    # 16 subjects for testing
 
+# Split search iterations for group-stratified split
+SPLIT_MAX_ITER = 10000
+
+# Use signal normalization before windowing (set False for variant B)
+SIGNAL_NORMALIZE = True
+
+# =============================================================================
+# REPRODUCIBILITY
+# =============================================================================
+SEED = 42
+
+# =============================================================================
+# MODEL PARAMETERS (Random Forest)
+# =============================================================================
+# These settings are more regularized to reduce overfitting.
+RF_N_ESTIMATORS = 200
+RF_MAX_DEPTH = 8
+RF_MIN_SAMPLES_SPLIT = 50
+RF_MIN_SAMPLES_LEAF = 20
+RF_MAX_FEATURES = 0.25
+RF_MAX_SAMPLES = 0.6
+RF_BOOTSTRAP = True
+
+# =============================================================================
+# FINAL TRAINING
+# =============================================================================
+FINAL_RETRAIN_ON_TRAIN_VAL = True
+
+# =============================================================================
+# TUNING
+# =============================================================================
+TUNING_CV_SPLITS = 5
+TUNING_METRIC = "f1"  # Options: "f1", "balanced_accuracy"
+
 # =============================================================================
 # ASYMMETRY CLASSIFICATION THRESHOLDS (K_As percentage)
 # =============================================================================
