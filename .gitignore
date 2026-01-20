@@ -1,0 +1,35 @@
+# Data files
+sEmg_databases/
+*.npy
+
+# Output files
+output/
+*.png
+
+# Compiled models
+models/
+*.joblib
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Documentation and reports
+*.pdf
+*.tex
+*.md
+*.aux
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+
+# Archives
+*.zip
+
+# Examples folder
+examples/
+
+# Requirements
+requirements.txt
